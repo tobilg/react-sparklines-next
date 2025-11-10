@@ -1,6 +1,6 @@
 # Beautiful and expressive sparklines component for React
 
-[![Build Status](https://travis-ci.org/borisyankov/react-sparklines.svg?branch=master)](https://travis-ci.org/borisyankov/react-sparklines)
+[![CI](https://github.com/tobilg/react-sparklines/actions/workflows/ci.yml/badge.svg)](https://github.com/tobilg/react-sparklines/actions/workflows/ci.yml)
 
 Live demos and docs: [borisyankov.github.io/react-sparklines/](http://borisyankov.github.io/react-sparklines/)
 
