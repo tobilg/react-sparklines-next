@@ -27,12 +27,16 @@ Import the Sparklines components that you need; for example to generate a simple
 
 ![](http://borisyankov.github.io/react-sparklines/img/basic.png)
 
-```
+```jsx
 import React from 'react';
 import { Sparklines } from 'react-sparklines';
-...
-<Sparklines data={[5, 10, 5, 20, 8, 15]} limit={5} width={100} height={20} margin={5}>
-</Sparklines>
+
+function MyComponent() {
+  return (
+    <Sparklines data={[5, 10, 5, 20, 8, 15]} limit={5} width={100} height={20} margin={5}>
+    </Sparklines>
+  );
+}
 ```
 
 Sparklines component is a container with the following properties:
@@ -56,27 +60,34 @@ min, max - optional, bound the chart
 
 ![](http://borisyankov.github.io/react-sparklines/img/customizable.png)
 
-```
+```jsx
 import React from 'react';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
-...
-<Sparklines data={[5, 10, 5, 20]}>
-  <SparklinesLine color="blue" />
-</Sparklines>
+
+function MyComponent() {
+  return (
+    <Sparklines data={[5, 10, 5, 20]}>
+      <SparklinesLine color="blue" />
+    </Sparklines>
+  );
+}
 ```
 
 #### Bars
 
 ![](http://borisyankov.github.io/react-sparklines/img/bars.png)
 
-
-```
+```jsx
 import React from 'react';
 import { Sparklines, SparklinesBars } from 'react-sparklines';
-...
-<Sparklines data={[5, 10, 5, 20]}>
-  <SparklinesBars />
-</Sparklines>
+
+function MyComponent() {
+  return (
+    <Sparklines data={[5, 10, 5, 20]}>
+      <SparklinesBars />
+    </Sparklines>
+  );
+}
 ```
 
 #### Spots

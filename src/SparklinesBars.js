@@ -38,8 +38,8 @@ export default class SparklinesBars extends React.Component {
     return (
       <g transform="scale(1,-1)">
         {points.map((p, i) => {
-          // Skip invalid points
-          if (!p || typeof p.y !== 'number' || isNaN(p.y) || typeof p.x !== 'number' || isNaN(p.x)) {
+          // Skip invalid points (supports gap feature from PR #46)
+          if (!p || !p.valid || typeof p.y !== 'number' || isNaN(p.y) || typeof p.x !== 'number' || isNaN(p.x)) {
             return null;
           }
 

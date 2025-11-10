@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import segmentPoints from './dataProcessing/segmentPoints';
 
 export default class SparklinesLine extends React.Component {
   static propTypes = {
@@ -8,25 +9,14 @@ export default class SparklinesLine extends React.Component {
   };
 
   static defaultProps = {
-    style: {},
-    onMouseMove: () => {},
+    style: {}
   };
 
   render() {
     const { data, points, width, height, margin, color, style, onMouseMove } = this.props;
 
-    const linePoints = points.map(p => [p.x, p.y]).reduce((a, b) => a.concat(b));
-
-    const closePolyPoints = [
-      points[points.length - 1].x,
-      height - margin,
-      margin,
-      height - margin,
-      margin,
-      points[0].y,
-    ];
-
-    const fillPoints = linePoints.concat(closePolyPoints);
+    // Segment points to handle gaps (invalid values)
+    const segments = segmentPoints(points);
 
     const lineStyle = {
       stroke: color || style.stroke || 'slategray',
@@ -43,25 +33,66 @@ export default class SparklinesLine extends React.Component {
       pointerEvents: 'auto',
     };
 
-    const tooltips = points.map((p, i) => {
-      return (
-        <circle
-          key={i}
-          cx={p.x}
-          cy={p.y}
-          r={2}
-          style={fillStyle}
-          onMouseEnter={e => onMouseMove('enter', data[i], p)}
-          onClick={e => onMouseMove('click', data[i], p)}
-        />
-      );
-    });
+    const tooltips = onMouseMove ? points
+      .filter(p => p.valid)
+      .map((p, i) => {
+        // Find the original index in the data array
+        const originalIndex = points.indexOf(p);
+        return (
+          <circle
+            key={originalIndex}
+            cx={p.x}
+            cy={p.y}
+            r={2}
+            style={fillStyle}
+            onMouseEnter={e => onMouseMove('enter', data[originalIndex], p)}
+            onClick={e => onMouseMove('click', data[originalIndex], p)}
+          />
+        );
+      }) : null;
 
     return (
       <g>
         {tooltips}
-        <polyline points={fillPoints.join(' ')} style={fillStyle} />
-        <polyline points={linePoints.join(' ')} style={lineStyle} />
+        {/* Render fill for each segment */}
+        {segments.map((segment, segIndex) => {
+          const segmentLinePoints = segment.map(p => [p.x, p.y]).reduce((a, b) => a.concat(b));
+          const closePolyPoints = style.fillInvert ? [
+            segment[segment.length - 1].x,
+            margin,
+            margin,
+            margin,
+            margin,
+            segment[0].y,
+          ] : [
+            segment[segment.length - 1].x,
+            height - margin,
+            margin,
+            height - margin,
+            margin,
+            segment[0].y,
+          ];
+          const fillPoints = segmentLinePoints.concat(closePolyPoints);
+
+          return (
+            <polyline
+              key={`fill-${segIndex}`}
+              points={fillPoints.join(' ')}
+              style={fillStyle}
+            />
+          );
+        })}
+        {/* Render line for each segment */}
+        {segments.map((segment, segIndex) => {
+          const segmentLinePoints = segment.map(p => [p.x, p.y]).reduce((a, b) => a.concat(b));
+          return (
+            <polyline
+              key={`line-${segIndex}`}
+              points={segmentLinePoints.join(' ')}
+              style={lineStyle}
+            />
+          );
+        })}
       </g>
     );
   }

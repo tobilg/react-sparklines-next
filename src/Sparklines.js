@@ -7,6 +7,7 @@ import SparklinesBars from './SparklinesBars';
 import SparklinesSpots from './SparklinesSpots';
 import SparklinesReferenceLine from './SparklinesReferenceLine';
 import SparklinesNormalBand from './SparklinesNormalBand';
+import SparklinesInteractiveLayer from './SparklinesInteractiveLayer';
 import dataToPoints from './dataProcessing/dataToPoints';
 
 class Sparklines extends PureComponent {
@@ -58,4 +59,4 @@ class Sparklines extends PureComponent {
     }
 }
 
-export { Sparklines, SparklinesLine, SparklinesCurve, SparklinesBars, SparklinesSpots, SparklinesReferenceLine, SparklinesNormalBand, SparklinesText }
+export { Sparklines, SparklinesLine, SparklinesCurve, SparklinesBars, SparklinesSpots, SparklinesReferenceLine, SparklinesNormalBand, SparklinesText, SparklinesInteractiveLayer }
