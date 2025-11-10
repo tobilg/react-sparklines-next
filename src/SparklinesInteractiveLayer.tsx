@@ -1,14 +1,24 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import { Point } from './types';
 
-export default class SparklinesInteractiveLayer extends React.Component {
-  static propTypes = {
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func
-  };
+interface SparklinesInteractiveLayerProps {
+    points?: Point[];
+    data?: number[];
+    width?: number;
+    height?: number;
+    onMouseMove?: (dataValue: number, point: Point, index: number, event: React.MouseEvent<SVGRectElement>) => void;
+    onMouseLeave?: (event: React.MouseEvent<SVGRectElement>) => void;
+    onClick?: (dataValue: number, point: Point | null, index: number, event: React.MouseEvent<SVGRectElement>) => void;
+}
 
-  constructor(props) {
+interface SparklinesInteractiveLayerState {
+    activePoint: Point | null;
+    activeIndex: number | null;
+}
+
+export default class SparklinesInteractiveLayer extends React.Component<SparklinesInteractiveLayerProps, SparklinesInteractiveLayerState> {
+
+  constructor(props: SparklinesInteractiveLayerProps) {
     super(props);
     this.state = {
       activePoint: null,
@@ -16,9 +26,9 @@ export default class SparklinesInteractiveLayer extends React.Component {
     };
   }
 
-  handleMouseMove = (e) => {
+  handleMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
     const { points, data, width, onMouseMove } = this.props;
-    if (!points || points.length === 0) return;
+    if (!points || points.length === 0 || !width) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -42,12 +52,12 @@ export default class SparklinesInteractiveLayer extends React.Component {
       activeIndex: closestIndex
     });
 
-    if (onMouseMove) {
+    if (onMouseMove && data) {
       onMouseMove(data[closestIndex], points[closestIndex], closestIndex, e);
     }
   }
 
-  handleMouseLeave = (e) => {
+  handleMouseLeave = (e: React.MouseEvent<SVGRectElement>) => {
     const { onMouseLeave } = this.props;
 
     this.setState({
@@ -60,11 +70,11 @@ export default class SparklinesInteractiveLayer extends React.Component {
     }
   }
 
-  handleClick = (e) => {
+  handleClick = (e: React.MouseEvent<SVGRectElement>) => {
     const { data, onClick } = this.props;
     const { activePoint, activeIndex } = this.state;
 
-    if (onClick && activeIndex !== null) {
+    if (onClick && activeIndex !== null && data) {
       onClick(data[activeIndex], activePoint, activeIndex, e);
     }
   }
@@ -88,7 +98,7 @@ export default class SparklinesInteractiveLayer extends React.Component {
           <g>
             <circle
               cx={activePoint.x}
-              cy={activePoint.y}
+              cy={activePoint.y || 0}
               r={3}
               fill="red"
               fillOpacity={0.8}

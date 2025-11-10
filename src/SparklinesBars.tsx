@@ -1,17 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import { Point } from './types';
 
-export default class SparklinesBars extends React.Component {
-  static propTypes = {
-    points: PropTypes.arrayOf(PropTypes.object),
-    height: PropTypes.number,
-    style: PropTypes.object,
-    barWidth: PropTypes.number,
-    margin: PropTypes.number,
-    onMouseMove: PropTypes.func,
-  };
+interface SparklinesBarsProps {
+    points?: Point[];
+    height?: number;
+    style?: React.CSSProperties & { strokeWidth?: string | number };
+    barWidth?: number;
+    margin?: number;
+    onMouseMove?: (point: Point) => void;
+}
 
-  static defaultProps = {
+export default class SparklinesBars extends React.Component<SparklinesBarsProps> {
+
+  static defaultProps: Partial<SparklinesBarsProps> = {
     style: { fill: 'slategray' },
   };
 
@@ -27,7 +28,7 @@ export default class SparklinesBars extends React.Component {
       return null;
     }
 
-    const strokeWidth = 1 * ((style && style.strokeWidth) || 0);
+    const strokeWidth = 1 * (Number(style && style.strokeWidth) || 0);
     const marginWidth = margin ? 2 * margin : 0;
     const width =
       barWidth ||

@@ -1,60 +1,69 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import segmentPoints from './dataProcessing/segmentPoints';
+import { Point } from './types';
 
-export default class SparklinesCurve extends React.Component {
+interface SparklinesCurveProps {
+    points?: Point[];
+    width?: number;
+    height?: number;
+    margin?: number;
+    color?: string;
+    style?: React.CSSProperties;
+    divisor?: number;
+}
 
-    static propTypes = {
-        color: PropTypes.string,
-        style: PropTypes.object
-    };
+export default class SparklinesCurve extends React.Component<SparklinesCurveProps> {
 
-    static defaultProps = {
+    static defaultProps: Partial<SparklinesCurveProps> = {
         style: {}
     };
 
     render() {
-        const { points, width, height, margin, color, style, divisor = 0.25 } = this.props;
+        const { points, height, margin, color, style, divisor = 0.25 } = this.props;
+
+        if (!points || !height || margin === undefined) {
+            return null;
+        }
 
         // Segment points to handle gaps (invalid values)
         const segments = segmentPoints(points);
 
-        const lineStyle = {
-            stroke: color || style.stroke || 'slategray',
-            strokeWidth: style.strokeWidth || '1',
-            strokeLinejoin: style.strokeLinejoin || 'round',
-            strokeLinecap: style.strokeLinecap || 'round',
+        const lineStyle: React.CSSProperties = {
+            stroke: color || style?.stroke || 'slategray',
+            strokeWidth: style?.strokeWidth || '1',
+            strokeLinejoin: style?.strokeLinejoin || 'round',
+            strokeLinecap: style?.strokeLinecap || 'round',
             fill: 'none'
         };
-        const fillStyle = {
-            stroke: style.stroke || 'none',
+        const fillStyle: React.CSSProperties = {
+            stroke: style?.stroke || 'none',
             strokeWidth: '0',
-            fillOpacity: style.fillOpacity || '.1',
-            fill: style.fill || color || 'slategray'
+            fillOpacity: style?.fillOpacity || '.1',
+            fill: style?.fill || color || 'slategray'
         };
 
         // Helper function to generate curve path for a segment
-        const generateCurvePath = (segment) => {
-            let prev;
-            const curve = (p) => {
-                let res;
+        const generateCurvePath = (segment: Point[]): (string | number)[] => {
+            let prev: Point | undefined;
+            const curve = (p: Point): (string | number)[] => {
+                let res: (string | number)[];
                 if (!prev) {
-                    res = [p.x, p.y]
+                    res = [p.x, p.y || 0];
                 } else {
                     const len = (p.x - prev.x) * divisor;
-                    res = [ "C",
+                    res = ["C",
                         //x1
                         prev.x + len,
                         //y1
-                        prev.y,
+                        prev.y || 0,
                         //x2,
                         p.x - len,
                         //y2,
-                        p.y,
+                        p.y || 0,
                         //x,
                         p.x,
                         //y
-                        p.y
+                        p.y || 0
                     ];
                 }
                 prev = p;
@@ -73,7 +82,7 @@ export default class SparklinesCurve extends React.Component {
                     const closePolyPoints = [
                         "L" + segment[segment.length - 1].x, height - margin,
                         margin, height - margin,
-                        margin, segment[0].y
+                        margin, segment[0].y || 0
                     ];
                     const fillPoints = linePoints.concat(closePolyPoints);
 
@@ -98,6 +107,6 @@ export default class SparklinesCurve extends React.Component {
                     );
                 })}
             </g>
-        )
+        );
     }
 }

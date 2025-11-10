@@ -1,8 +1,10 @@
+import { Point } from '../types';
+
 // Segments an array of points into continuous valid segments
 // Points with valid=false create gaps between segments
-export default (points) => {
-    const segments = [];
-    let currentSegment = [];
+export default (points: Point[]): Point[][] => {
+    const segments: Point[][] = [];
+    let currentSegment: Point[] = [];
 
     for (let i = 0; i < points.length; i++) {
         const point = points[i];

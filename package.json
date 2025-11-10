@@ -2,21 +2,26 @@
   "name": "react-sparklines",
   "version": "1.7.0",
   "description": "Beautiful and expressive Sparklines component for React ",
-  "main": "build/index.js",
-  "types": "index.d.ts",
-  "files": [
-    "build/",
-    "index.d.ts"
-  ],
-  "directories": {
-    "src": "src/"
+  "type": "module",
+  "main": "./build/index.js",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.mjs",
+      "require": "./build/index.js"
+    }
   },
+  "files": [
+    "build/"
+  ],
   "scripts": {
-    "start": "node build-demo.js --watch",
+    "dev": "vite",
+    "build": "tsc && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "compile": "node build.js",
-    "prepare": "npm run compile"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -41,8 +46,10 @@
   "homepage": "https://github.com/borisyankov/react-sparklines#readme",
   "devDependencies": {
     "@testing-library/react": "^12.1.5",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
     "@vitest/ui": "^1.3.1",
-    "esbuild": "^0.20.1",
     "hiff": "^0.3.0",
     "jsdom": "^24.0.0",
     "line-by-line": "^0.1.6",
@@ -50,13 +57,13 @@
     "react-dom": "^16.14.0",
     "react-element-to-jsx-string": "^15.0.0",
     "replaceall": "^0.1.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.3.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
-  },
-  "dependencies": {
-    "prop-types": "^15.8.1"
   }
 }

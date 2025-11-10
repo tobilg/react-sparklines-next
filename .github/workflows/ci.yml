@@ -33,7 +33,7 @@ jobs:
         run: npm test
 
       - name: Build
-        run: npm run compile
+        run: npm run build
 
   publish:
     name: Publish to npm
@@ -55,7 +55,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run compile
+        run: npm run build
 
       - name: Publish to npm
         run: npm publish

@@ -1,52 +1,67 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import segmentPoints from './dataProcessing/segmentPoints';
+import { Point } from './types';
 
-export default class SparklinesLine extends React.Component {
-  static propTypes = {
-    color: PropTypes.string,
-    style: PropTypes.object,
-  };
+interface SparklinesLineStyle extends React.CSSProperties {
+    fillInvert?: boolean;
+}
 
-  static defaultProps = {
+interface SparklinesLineProps {
+    data?: number[];
+    points?: Point[];
+    width?: number;
+    height?: number;
+    margin?: number;
+    color?: string;
+    style?: SparklinesLineStyle;
+    onMouseMove?: (event: string, dataValue: number, point: Point) => void;
+}
+
+export default class SparklinesLine extends React.Component<SparklinesLineProps> {
+
+  static defaultProps: Partial<SparklinesLineProps> = {
     style: {}
   };
 
   render() {
     const { data, points, width, height, margin, color, style, onMouseMove } = this.props;
 
+    if (!points || !width || !height || margin === undefined) {
+      return null;
+    }
+
     // Segment points to handle gaps (invalid values)
     const segments = segmentPoints(points);
 
-    const lineStyle = {
-      stroke: color || style.stroke || 'slategray',
-      strokeWidth: style.strokeWidth || '1',
-      strokeLinejoin: style.strokeLinejoin || 'round',
-      strokeLinecap: style.strokeLinecap || 'round',
+    const lineStyle: React.CSSProperties = {
+      stroke: color || style?.stroke || 'slategray',
+      strokeWidth: style?.strokeWidth || '1',
+      strokeLinejoin: style?.strokeLinejoin || 'round',
+      strokeLinecap: style?.strokeLinecap || 'round',
       fill: 'none',
     };
-    const fillStyle = {
-      stroke: style.stroke || 'none',
+    const fillStyle: React.CSSProperties = {
+      stroke: style?.stroke || 'none',
       strokeWidth: '0',
-      fillOpacity: style.fillOpacity || '.1',
-      fill: style.fill || color || 'slategray',
+      fillOpacity: style?.fillOpacity || '.1',
+      fill: style?.fill || color || 'slategray',
       pointerEvents: 'auto',
     };
 
-    const tooltips = onMouseMove ? points
+    const tooltips = onMouseMove && data ? points
       .filter(p => p.valid)
-      .map((p, i) => {
+      .map((p) => {
         // Find the original index in the data array
         const originalIndex = points.indexOf(p);
         return (
           <circle
             key={originalIndex}
             cx={p.x}
-            cy={p.y}
+            cy={p.y || 0}
             r={2}
             style={fillStyle}
-            onMouseEnter={e => onMouseMove('enter', data[originalIndex], p)}
-            onClick={e => onMouseMove('click', data[originalIndex], p)}
+            onMouseEnter={() => onMouseMove('enter', data[originalIndex], p)}
+            onClick={() => onMouseMove('click', data[originalIndex], p)}
           />
         );
       }) : null;
@@ -57,7 +72,7 @@ export default class SparklinesLine extends React.Component {
         {/* Render fill for each segment */}
         {segments.map((segment, segIndex) => {
           const segmentLinePoints = segment.map(p => [p.x, p.y]).reduce((a, b) => a.concat(b));
-          const closePolyPoints = style.fillInvert ? [
+          const closePolyPoints = style?.fillInvert ? [
             segment[segment.length - 1].x,
             margin,
             margin,

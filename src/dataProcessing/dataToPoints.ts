@@ -1,8 +1,9 @@
 import arrayMin from './min';
 import arrayMax from './max';
+import { Point } from '../types';
 
 // Helper function to check if a value is valid (not null, NaN, or Infinity)
-const isValidValue = (value) => {
+const isValidValue = (value: any): boolean => {
     return value !== null &&
            value !== undefined &&
            typeof value === 'number' &&
@@ -10,7 +11,25 @@ const isValidValue = (value) => {
            isFinite(value);
 };
 
-export default ({ data, limit, width = 1, height = 1, margin = 0, max = arrayMax(data), min = arrayMin(data) }) => {
+interface DataToPointsOptions {
+    data: number[];
+    limit?: number;
+    width?: number;
+    height?: number;
+    margin?: number;
+    max?: number;
+    min?: number;
+}
+
+export default ({
+    data,
+    limit,
+    width = 1,
+    height = 1,
+    margin = 0,
+    max = arrayMax(data),
+    min = arrayMin(data)
+}: DataToPointsOptions): Point[] => {
 
     const len = data.length;
 
