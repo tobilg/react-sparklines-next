@@ -232,3 +232,34 @@ function MyComponent() {
 ```
 
 The interactive layer shows a red circle and dashed line at the active point position.
+
+## Development
+
+### Running Tests
+
+```bash
+npm test
+```
+
+### Building
+
+```bash
+npm run compile
+```
+
+### Running Demo Locally
+
+```bash
+npm start
+# Visit http://localhost:8080
+```
+
+## Publishing
+
+This project uses automated publishing via GitHub Actions. New versions are automatically published to npm when version tags are pushed to the main branch.
+
+For detailed instructions on releasing new versions, see [PUBLISHING.md](./PUBLISHING.md).
+
+## License
+
+MIT
