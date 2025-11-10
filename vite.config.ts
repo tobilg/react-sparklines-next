@@ -11,6 +11,9 @@ export default defineConfig({
       insertTypesEntry: true,
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       exclude: ['src/**/*.test.ts', 'src/**/*.test.tsx', '__tests__/**/*'],
+      compilerOptions: {
+        declarationMap: false,
+      },
     }),
   ],
   build: {
@@ -30,7 +33,7 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: true,
+    sourcemap: false,
     outDir: 'build',
   },
 });
