@@ -1,6 +1,8 @@
 language: node_js
-before_install: npm install -g npm@3
-script: travis_retry npm test
 node_js:
-- '7'
-sudo: false
+  - '18'
+  - '20'
+script: npm test
+cache:
+  directories:
+    - node_modules

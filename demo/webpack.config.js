@@ -1,20 +1,27 @@
 var path = require('path');
-var webpack = require('webpack')
 
 module.exports = {
-    cache: true,
+    mode: 'development',
     entry: './demo.js',
     output: {
         path: __dirname,
         publicPath: '/',
-        filename: 'demo.build.js',
+        filename: 'demo.build.js'
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.jsx?$/,
             exclude: /(node_modules)/,
-            loader: 'babel-loader'
+            use: {
+                loader: 'babel-loader'
+            }
         }]
     },
-    plugins: []
+    devServer: {
+        static: {
+            directory: __dirname
+        },
+        compress: true,
+        port: 8080
+    }
 };

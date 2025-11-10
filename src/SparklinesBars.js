@@ -17,6 +17,16 @@ export default class SparklinesBars extends React.Component {
 
   render() {
     const { points, height, style, barWidth, margin, onMouseMove } = this.props;
+
+    // Return null if required props are missing or invalid
+    if (!points || !Array.isArray(points) || points.length === 0) {
+      return null;
+    }
+
+    if (typeof height !== 'number' || isNaN(height)) {
+      return null;
+    }
+
     const strokeWidth = 1 * ((style && style.strokeWidth) || 0);
     const marginWidth = margin ? 2 * margin : 0;
     const width =
@@ -27,17 +37,24 @@ export default class SparklinesBars extends React.Component {
 
     return (
       <g transform="scale(1,-1)">
-        {points.map((p, i) =>
-          <rect
-            key={i}
-            x={p.x - (width + strokeWidth) / 2}
-            y={-height}
-            width={width}
-            height={Math.max(0, height - p.y)}
-            style={style}
-            onMouseMove={onMouseMove && onMouseMove.bind(this, p)}
-          />,
-        )}
+        {points.map((p, i) => {
+          // Skip invalid points
+          if (!p || typeof p.y !== 'number' || isNaN(p.y) || typeof p.x !== 'number' || isNaN(p.x)) {
+            return null;
+          }
+
+          return (
+            <rect
+              key={i}
+              x={p.x - (width + strokeWidth) / 2}
+              y={-height}
+              width={width}
+              height={Math.max(0, height - p.y)}
+              style={style}
+              onMouseMove={onMouseMove && onMouseMove.bind(this, p)}
+            />
+          );
+        })}
       </g>
     );
   }

@@ -1,8 +1,8 @@
-export min from './min';
-export max from './min';
-export mean from './mean';
-export avg from './mean';
-export midRange from './midRange';
-export median from './median';
-export stdev from './stdev';
-export variance from './variance';
+export { default as min } from './min';
+export { default as max } from './max';
+export { default as mean } from './mean';
+export { default as avg } from './mean';
+export { default as midRange } from './midRange';
+export { default as median } from './median';
+export { default as stdev } from './stdev';
+export { default as variance } from './variance';
