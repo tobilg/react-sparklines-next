@@ -256,9 +256,13 @@ npm start
 
 ## Publishing
 
-This project uses automated publishing via GitHub Actions. New versions are automatically published to npm when version tags are pushed to the main branch.
+This project uses automated publishing via GitHub Actions. When a version tag (e.g., `v1.7.1`) is pushed to the main branch, the package is automatically tested and published to npm.
 
-For detailed instructions on releasing new versions, see [PUBLISHING.md](./PUBLISHING.md).
+To release a new version:
+```bash
+npm version patch  # or minor, or major
+git push origin main --follow-tags
+```
 
 ## License
 
