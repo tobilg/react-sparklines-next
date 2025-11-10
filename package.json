@@ -7,12 +7,11 @@
     "src": "src/"
   },
   "scripts": {
-    "start": "cd demo && webpack serve --progress",
-    "test": "mocha --require @babel/register --require __tests__/setup.js __tests__",
-    "test:watch": "mocha --require @babel/register --require __tests__/setup.js --watch __tests__",
-    "compile": "webpack",
-    "prepare": "npm run compile",
-    "test:bootstrap": "node -r @babel/register bootstrap-tests.js"
+    "start": "node build-demo.js --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "compile": "node build.js",
+    "prepare": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -34,24 +33,17 @@
   },
   "homepage": "https://github.com/borisyankov/react-sparklines#readme",
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
-    "@babel/register": "^7.23.7",
-    "babel-loader": "^9.1.3",
-    "chai": "^4.4.1",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.7",
+    "@testing-library/react": "^12.1.5",
+    "@vitest/ui": "^1.3.1",
+    "esbuild": "^0.20.1",
     "hiff": "^0.3.0",
+    "jsdom": "^24.0.0",
     "line-by-line": "^0.1.6",
-    "mocha": "^10.3.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-element-to-jsx-string": "^15.0.0",
     "replaceall": "^0.1.6",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2"
+    "vitest": "^1.3.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

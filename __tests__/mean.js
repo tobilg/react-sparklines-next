@@ -1,11 +1,11 @@
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 import mean from '../src/dataProcessing/mean';
 
 describe('mean', () => {
     it('should return average of values', () => {
-        expect(mean([0])).to.eq(0)
-        expect(mean([0, 1])).to.eq(0.5)
-        expect(mean([1, 2])).to.eq(3/2)
-        expect(mean([0, 1, 2])).to.eq(1)
+        expect(mean([0])).toBe(0)
+        expect(mean([0, 1])).toBe(0.5)
+        expect(mean([1, 2])).toBe(3/2)
+        expect(mean([0, 1, 2])).toBe(1)
     });
 });
