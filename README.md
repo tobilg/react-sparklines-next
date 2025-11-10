@@ -12,6 +12,16 @@ Live demos and docs: [borisyankov.github.io/react-sparklines/](http://borisyanko
 npm install react-sparklines --save
 ```
 
+## TypeScript Support
+
+This library includes TypeScript definitions out of the box. No need to install additional `@types` packages.
+
+```typescript
+import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
+```
+
+All components are fully typed with proper prop interfaces.
+
 ## Run demo
 
 ```

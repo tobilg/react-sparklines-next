@@ -3,6 +3,12 @@
   "version": "1.7.0",
   "description": "Beautiful and expressive Sparklines component for React ",
   "main": "build/index.js",
+  "types": "index.d.ts",
+  "files": [
+    "build/",
+    "index.d.ts",
+    "src/"
+  ],
   "directories": {
     "src": "src/"
   },
@@ -24,7 +30,9 @@
     "charts",
     "sparklines",
     "visualization",
-    "jsx"
+    "jsx",
+    "typescript",
+    "types"
   ],
   "author": "Boris Yankov <borisyankov@gmail.com> (https://github.com/borisyankov)",
   "license": "MIT",
