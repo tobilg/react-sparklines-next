@@ -6,8 +6,7 @@
   "types": "index.d.ts",
   "files": [
     "build/",
-    "index.d.ts",
-    "src/"
+    "index.d.ts"
   ],
   "directories": {
     "src": "src/"
