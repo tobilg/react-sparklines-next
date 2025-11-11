@@ -73,6 +73,17 @@ function MyComponent() {
 }
 ```
 
+**SparklinesLine Props:**
+- `color` (string) - Line and fill color (e.g., "blue", "#1c8cdc")
+- `style` - Style object supporting:
+  - `stroke` - Line stroke color
+  - `strokeWidth` - Line thickness (default: "1")
+  - `strokeLinejoin` - Line join style (default: "round")
+  - `strokeLinecap` - Line cap style (default: "round")
+  - `fill` - Fill area color
+  - `fillOpacity` - Fill area opacity (default: ".1")
+  - `fillInvert` - Boolean to invert fill direction (fills from top instead of bottom)
+
 #### Bars
 
 ```jsx
@@ -86,6 +97,68 @@ function MyComponent() {
     </Sparklines>
   );
 }
+```
+
+**SparklinesBars Props:**
+- `style` - Style object supporting:
+  - `fill` - Bar fill color (default: "slategray")
+  - `stroke` - Bar stroke/border color
+  - `strokeWidth` - Bar border width
+  - `fillOpacity` - Bar opacity
+- `barWidth` (number) - Fixed width for each bar (optional, calculated automatically if not provided)
+- `margin` (number) - Spacing between bars
+
+#### Horizontal Bar
+
+The `SparklinesHorizontalBar` component displays a single horizontal progress bar without needing time-series data:
+
+```jsx
+import React from 'react';
+import { SparklinesHorizontalBar } from 'react-sparklines-next';
+
+function MyComponent() {
+  return (
+    <SparklinesHorizontalBar
+      value={49}
+      totalValue={100}
+      style={{ fill: "#1c8cdc", backgroundColor: "#e0f0ff" }}
+      showValue
+    />
+  );
+}
+```
+
+**Props:**
+- `value` (number, required) - The current value to display
+- `totalValue` (number, required) - The maximum value (denominator)
+- `style` - Style object supporting:
+  - `fill` - Bar color
+  - `backgroundColor` - Background color
+  - `fontSize` - Font size for value text (e.g., "16px")
+  - `fontFamily` - Font family for value text (e.g., "monospace", "serif")
+  - `textColor` - Color of the value text
+  - `textPadding` - Padding from right edge for value text (number)
+- `showValue` (boolean) - Whether to display the value text on the right side
+- `width`, `height`, `margin` - Standard dimension props
+
+**Example with all styling options:**
+
+```jsx
+<SparklinesHorizontalBar
+  value={90}
+  totalValue={100}
+  width={240}
+  height={60}
+  style={{
+    fill: "#fa7e17",
+    backgroundColor: "#fff4e6",
+    fontSize: "18px",
+    fontFamily: "serif",
+    textColor: "#fa7e17",
+    textPadding: 8
+  }}
+  showValue
+/>
 ```
 
 #### Spots
@@ -105,6 +178,28 @@ function MyComponent() {
 }
 ```
 
+**SparklinesSpots Props:**
+- `size` (number) - Radius of the spot circles (default: 2)
+- `style` - Style object for the spots (fill, stroke, strokeWidth, etc.)
+- `spotColors` (object) - Custom colors for specific spots:
+  - `first` - Color for the first spot
+  - `last` - Color for the last spot
+  - `high` - Color for the highest value spot
+  - `low` - Color for the lowest value spot
+
+**Example with custom spot colors:**
+```jsx
+<SparklinesSpots
+  size={4}
+  spotColors={{
+    first: 'green',
+    last: 'blue',
+    high: 'red',
+    low: 'orange'
+  }}
+/>
+```
+
 #### Reference Line
 
 ```jsx
@@ -120,6 +215,25 @@ function MyComponent() {
     </Sparklines>
   );
 }
+```
+
+**SparklinesReferenceLine Props:**
+- `type` (string) - Type of reference line to display:
+  - `"max"` - Maximum value in the dataset
+  - `"min"` - Minimum value in the dataset
+  - `"mean"` or `"avg"` - Average value (default: "mean")
+  - `"median"` - Median value
+  - `"custom"` - Use with the `value` prop for a custom value
+- `value` (number) - Custom value for the reference line (only used when type="custom")
+- `style` - Style object for the line (default: `{ stroke: 'red', strokeOpacity: .75, strokeDasharray: '2, 2' }`)
+
+**Example with custom value:**
+```jsx
+<SparklinesReferenceLine
+  type="custom"
+  value={15}
+  style={{ stroke: 'blue', strokeDasharray: '5, 5' }}
+/>
 ```
 
 #### Normal Band
@@ -138,6 +252,11 @@ function MyComponent() {
   );
 }
 ```
+
+**SparklinesNormalBand Props:**
+- `style` - Style object for the band (default: `{ fill: 'red', fillOpacity: .1 }`)
+
+The normal band visualizes one standard deviation above and below the mean of the dataset.
 
 #### Inverted Fill
 
@@ -219,6 +338,18 @@ function MyComponent() {
   );
 }
 ```
+
+**SparklinesInteractiveLayer Props:**
+- `onMouseMove` (function) - Callback fired when mouse moves over a data point
+  - Parameters: `(dataValue, point, index, event)`
+  - `dataValue` - The actual data value at this point
+  - `point` - The Point object with x, y coordinates
+  - `index` - The index of the data point in the dataset
+  - `event` - The React mouse event
+- `onMouseLeave` (function) - Callback fired when mouse leaves the chart area
+  - Parameters: `(event)`
+- `onClick` (function) - Callback fired when a data point is clicked
+  - Parameters: `(dataValue, point, index, event)`
 
 The interactive layer shows a red circle and dashed line at the active point position.
 

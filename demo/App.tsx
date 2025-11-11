@@ -6,7 +6,8 @@ import {
     SparklinesCurve,
     SparklinesNormalBand,
     SparklinesReferenceLine,
-    SparklinesSpots
+    SparklinesSpots,
+    SparklinesHorizontalBar
 } from '../src/index';
 
 function boxMullerRandom(): () => number {
@@ -289,6 +290,24 @@ const RealWorld9 = () =>
         <SparklinesReferenceLine style={{ stroke: 'white', strokeOpacity: .75, strokeDasharray: '2, 2' }} />
     </Sparklines>
 
+const HorizontalBar1 = () =>
+    <SparklinesHorizontalBar value={49} totalValue={100} style={{ backgroundColor: "#e8e8e8" }} />
+
+const HorizontalBar2 = () =>
+    <SparklinesHorizontalBar value={49} totalValue={100} style={{ fill: "#1c8cdc", backgroundColor: "#e0f0ff" }} showValue />
+
+const HorizontalBar3 = () =>
+    <SparklinesHorizontalBar value={75} totalValue={100} style={{ fill: "#56b45d", backgroundColor: "#e8f5e9", fontSize: "16px", textColor: "#56b45d" }} showValue />
+
+const HorizontalBar4 = () =>
+    <SparklinesHorizontalBar value={30} totalValue={100} style={{ fill: "#ea485c", backgroundColor: "#ffe8eb", fontSize: "12px", textPadding: 10, fontFamily: "monospace" }} showValue />
+
+const HorizontalBar5 = () =>
+    <SparklinesHorizontalBar value={90} totalValue={100} style={{ fill: "#fa7e17", backgroundColor: "#fff4e6", fontSize: "18px", textPadding: 8, textColor: "#fa7e17", fontFamily: "serif" }} showValue />
+
+const HorizontalBar6 = () =>
+    <SparklinesHorizontalBar value={12} totalValue={100} style={{ fill: "#8e44af", backgroundColor: "#f3e8f5" }} showValue />
+
 // Code example component
 const CodeExample: React.FC<{ children: string }> = ({ children }) => {
     useEffect(() => {
@@ -407,6 +426,46 @@ const App: React.FC = () => {
     <SparklinesBars style={{ stroke: "white", fill: "#41c3f9", fillOpacity: ".25" }} />
     <SparklinesLine style={{ stroke: "#41c3f9", fill: "none" }} />
 </Sparklines>`}</CodeExample>
+                </div>
+
+                <h2>Horizontal Bars</h2>
+                <div className="row">
+                    <div><HorizontalBar1 /></div>
+                    <CodeExample>{`<SparklinesHorizontalBar
+    value={49}
+    totalValue={100}
+    style={{ backgroundColor: "#e8e8e8" }} />`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div><HorizontalBar2 /></div>
+                    <CodeExample>{`<SparklinesHorizontalBar
+    value={49}
+    totalValue={100}
+    style={{ fill: "#1c8cdc", backgroundColor: "#e0f0ff" }}
+    showValue />`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div>
+                        <HorizontalBar3 />
+                        <HorizontalBar4 />
+                        <HorizontalBar5 />
+                        <HorizontalBar6 />
+                    </div>
+                    <CodeExample>{`<SparklinesHorizontalBar value={75} totalValue={100}
+    style={{ fill: "#56b45d", backgroundColor: "#e8f5e9", fontSize: "16px", textColor: "#56b45d" }}
+    showValue />
+<SparklinesHorizontalBar value={30} totalValue={100}
+    style={{ fill: "#ea485c", backgroundColor: "#ffe8eb", fontSize: "12px", textPadding: 10,
+             fontFamily: "monospace" }}
+    showValue />
+<SparklinesHorizontalBar value={90} totalValue={100}
+    style={{ fill: "#fa7e17", backgroundColor: "#fff4e6", fontSize: "18px", textPadding: 8,
+             textColor: "#fa7e17", fontFamily: "serif" }}
+    showValue />
+<SparklinesHorizontalBar value={12} totalValue={100}
+    style={{ fill: "#8e44af", backgroundColor: "#f3e8f5" }} showValue />`}</CodeExample>
                 </div>
 
                 <h2>Dynamic</h2>

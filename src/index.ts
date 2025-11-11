@@ -3,6 +3,7 @@ export {
     SparklinesLine,
     SparklinesCurve,
     SparklinesBars,
+    SparklinesHorizontalBar,
     SparklinesSpots,
     SparklinesReferenceLine,
     SparklinesNormalBand,

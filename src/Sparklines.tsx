@@ -3,6 +3,7 @@ import SparklinesText from './SparklinesText';
 import SparklinesLine from './SparklinesLine';
 import SparklinesCurve from './SparklinesCurve';
 import SparklinesBars from './SparklinesBars';
+import SparklinesHorizontalBar from './SparklinesHorizontalBar';
 import SparklinesSpots from './SparklinesSpots';
 import SparklinesReferenceLine from './SparklinesReferenceLine';
 import SparklinesNormalBand from './SparklinesNormalBand';
@@ -70,6 +71,7 @@ export {
     SparklinesLine,
     SparklinesCurve,
     SparklinesBars,
+    SparklinesHorizontalBar,
     SparklinesSpots,
     SparklinesReferenceLine,
     SparklinesNormalBand,
