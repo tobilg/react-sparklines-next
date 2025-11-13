@@ -11,7 +11,13 @@ npm install react-sparklines-next --save
 This library is written in TypeScript and includes type definitions out of the box. No need to install additional `@types` packages.
 
 ```typescript
-import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines-next';
+import {
+  Sparklines,
+  SparklinesLine,
+  SparklinesSteppedLine,
+  SparklinesSteppedArea,
+  SparklinesReferenceLine
+} from 'react-sparklines-next';
 ```
 
 All components are fully typed with proper prop interfaces and IntelliSense support.
@@ -159,6 +165,138 @@ function MyComponent() {
   }}
   showValue
 />
+```
+
+#### Stepped Line
+
+The `SparklinesSteppedLine` component renders a stepped line chart, ideal for visualizing discrete data changes:
+
+```jsx
+import React from 'react';
+import { Sparklines, SparklinesSteppedLine } from 'react-sparklines-next';
+
+function MyComponent() {
+  return (
+    <Sparklines data={[5, 10, 5, 20, 8, 15]}>
+      <SparklinesSteppedLine step="before" color="#1c8cdc" />
+    </Sparklines>
+  );
+}
+```
+
+**Props:**
+- `step` (string | boolean) - Step interpolation mode:
+  - `"before"` (default) - Horizontal line first, then vertical step (staircase going right)
+  - `"after"` - Vertical step first, then horizontal line (staircase going left)
+  - `"middle"` - Steps at midpoint between data points (centered steps)
+  - `true` - Same as "before"
+- `color` (string) - Line color (e.g., "blue", "#1c8cdc")
+- `style` - Style object supporting:
+  - `stroke` - Line stroke color
+  - `strokeWidth` - Line thickness (default: "1")
+  - `strokeLinejoin` - Line join style (default: "round")
+  - `strokeLinecap` - Line cap style (default: "round")
+  - `fill` - Fill color (typically set to "none" for stepped lines)
+- `onMouseMove` (function) - Optional callback for hover interactions
+
+**Example with different step modes:**
+
+```jsx
+// Before mode (default) - steps occur before the data point
+<Sparklines data={[5, 10, 5, 20]}>
+  <SparklinesSteppedLine step="before" color="#1c8cdc" />
+</Sparklines>
+
+// After mode - steps occur after the data point
+<Sparklines data={[5, 10, 5, 20]}>
+  <SparklinesSteppedLine step="after" color="#fa7e17" />
+</Sparklines>
+
+// Middle mode - steps occur at the midpoint
+<Sparklines data={[5, 10, 5, 20]}>
+  <SparklinesSteppedLine step="middle" color="#56b45d" />
+</Sparklines>
+```
+
+#### Stepped Area
+
+The `SparklinesSteppedArea` component renders a stepped area chart with gradient support, perfect for showing cumulative or state-based data:
+
+```jsx
+import React from 'react';
+import { Sparklines, SparklinesSteppedArea } from 'react-sparklines-next';
+
+function MyComponent() {
+  return (
+    <Sparklines data={[5, 10, 5, 20, 8, 15]}>
+      <SparklinesSteppedArea step="before" color="#1c8cdc" />
+    </Sparklines>
+  );
+}
+```
+
+**Props:**
+- `step` (string | boolean) - Step interpolation mode (same as SparklinesSteppedLine):
+  - `"before"` (default)
+  - `"after"`
+  - `"middle"`
+- `color` (string) - Base color for fill and stroke
+- `style` - Style object supporting:
+  - `fill` - Fill color
+  - `fillOpacity` - Fill opacity (default: 0.3)
+  - `stroke` - Outline stroke color
+  - `strokeWidth` - Outline thickness (default: "1")
+- `gradient` (object) - Optional gradient configuration:
+  - `topColor` - Gradient top color
+  - `bottomColor` - Gradient bottom color
+  - `topOpacity` - Top opacity (default: 0.8)
+  - `bottomOpacity` - Bottom opacity (default: 0.5)
+- `showBaseline` (boolean) - Show horizontal baseline at bottom (default: true)
+- `showOutline` (boolean) - Show stepped outline (default: true)
+- `onMouseMove` (function) - Optional callback for hover interactions
+
+**Example with gradient:**
+
+```jsx
+<Sparklines data={[5, 10, 5, 20, 8, 15]}>
+  <SparklinesSteppedArea
+    step="before"
+    color="#c89ed4"
+    gradient={{
+      topColor: "#c89ed4",
+      bottomColor: "#c89ed4",
+      topOpacity: 0.8,
+      bottomOpacity: 0.5
+    }}
+    showBaseline={true}
+  />
+</Sparklines>
+```
+
+**Example without baseline:**
+
+```jsx
+<Sparklines data={[5, 10, 5, 20, 8, 15]}>
+  <SparklinesSteppedArea
+    step="after"
+    color="#8e44af"
+    showBaseline={false}
+    style={{ fillOpacity: 0.5 }}
+  />
+</Sparklines>
+```
+
+**Example without outline (area only):**
+
+```jsx
+<Sparklines data={[5, 10, 5, 20, 8, 15]}>
+  <SparklinesSteppedArea
+    step="middle"
+    color="#ea485c"
+    showOutline={false}
+    style={{ fillOpacity: 0.6 }}
+  />
+</Sparklines>
 ```
 
 #### Spots

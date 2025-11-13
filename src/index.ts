@@ -8,7 +8,9 @@ export {
     SparklinesReferenceLine,
     SparklinesNormalBand,
     SparklinesText,
-    SparklinesInteractiveLayer
+    SparklinesInteractiveLayer,
+    SparklinesSteppedLine,
+    SparklinesSteppedArea
 } from './Sparklines';
 
 export { default } from './Sparklines';

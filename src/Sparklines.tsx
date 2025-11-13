@@ -8,6 +8,8 @@ import SparklinesSpots from './SparklinesSpots';
 import SparklinesReferenceLine from './SparklinesReferenceLine';
 import SparklinesNormalBand from './SparklinesNormalBand';
 import SparklinesInteractiveLayer from './SparklinesInteractiveLayer';
+import SparklinesSteppedLine from './SparklinesSteppedLine';
+import SparklinesSteppedArea from './SparklinesSteppedArea';
 import dataToPoints from './dataProcessing/dataToPoints';
 import { Point } from './types';
 
@@ -76,7 +78,9 @@ export {
     SparklinesReferenceLine,
     SparklinesNormalBand,
     SparklinesText,
-    SparklinesInteractiveLayer
+    SparklinesInteractiveLayer,
+    SparklinesSteppedLine,
+    SparklinesSteppedArea
 };
 
 export default Sparklines;

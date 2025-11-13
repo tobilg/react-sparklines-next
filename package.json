@@ -1,6 +1,6 @@
 {
   "name": "react-sparklines-next",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Beautiful and expressive Sparklines component for React",
   "type": "module",
   "main": "./dist/index.js",

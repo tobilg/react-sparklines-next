@@ -7,7 +7,9 @@ import {
     SparklinesNormalBand,
     SparklinesReferenceLine,
     SparklinesSpots,
-    SparklinesHorizontalBar
+    SparklinesHorizontalBar,
+    SparklinesSteppedLine,
+    SparklinesSteppedArea
 } from '../src/index';
 
 function boxMullerRandom(): () => number {
@@ -52,6 +54,71 @@ const Simple = () =>
 const SimpleCurve = () =>
     <Sparklines data={sampleData}>
         <SparklinesCurve />
+    </Sparklines>
+
+const SteppedLineBefore = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedLine step="before" color="#1c8cdc" />
+    </Sparklines>
+
+const SteppedLineAfter = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedLine step="after" color="#fa7e17" />
+    </Sparklines>
+
+const SteppedLineMiddle = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedLine step="middle" color="#56b45d" />
+    </Sparklines>
+
+const SteppedAreaBefore = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedArea step="before" color="#1c8cdc" />
+    </Sparklines>
+
+const SteppedAreaAfter = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedArea step="after" color="#fa7e17" />
+    </Sparklines>
+
+const SteppedAreaMiddle = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedArea step="middle" color="#56b45d" />
+    </Sparklines>
+
+const SteppedAreaGradient = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedArea
+            step="before"
+            color="#c89ed4"
+            gradient={{
+                topColor: "#c89ed4",
+                bottomColor: "#c89ed4",
+                topOpacity: 0.8,
+                bottomOpacity: 0.5
+            }}
+            showBaseline={true}
+        />
+    </Sparklines>
+
+const SteppedAreaNoBaseline = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedArea
+            step="after"
+            color="#8e44af"
+            showBaseline={false}
+            style={{ fillOpacity: 0.5 }}
+        />
+    </Sparklines>
+
+const SteppedAreaNoOutline = () =>
+    <Sparklines data={sampleData}>
+        <SparklinesSteppedArea
+            step="middle"
+            color="#ea485c"
+            showOutline={false}
+            style={{ fillOpacity: 0.6 }}
+        />
     </Sparklines>
 
 const Customizable1 = () =>
@@ -360,6 +427,82 @@ const App: React.FC = () => {
                     <div><SimpleCurve /></div>
                     <CodeExample>{`<Sparklines data={sampleData}>
     <SparklinesCurve />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <h2>Stepped Line</h2>
+                <div className="row">
+                    <div><SteppedLineBefore /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedLine step="before" color="#1c8cdc" />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div><SteppedLineAfter /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedLine step="after" color="#fa7e17" />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div><SteppedLineMiddle /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedLine step="middle" color="#56b45d" />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <h2>Stepped Area</h2>
+                <div className="row">
+                    <div><SteppedAreaBefore /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedArea step="before" color="#1c8cdc" />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div><SteppedAreaAfter /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedArea step="after" color="#fa7e17" />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div><SteppedAreaMiddle /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedArea step="middle" color="#56b45d" />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div><SteppedAreaGradient /></div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedArea
+        step="before"
+        color="#c89ed4"
+        gradient={{
+            topColor: "#c89ed4",
+            bottomColor: "#c89ed4",
+            topOpacity: 0.8,
+            bottomOpacity: 0.5
+        }}
+        showBaseline={true}
+    />
+</Sparklines>`}</CodeExample>
+                </div>
+
+                <div className="row">
+                    <div>
+                        <SteppedAreaNoBaseline />
+                        <SteppedAreaNoOutline />
+                    </div>
+                    <CodeExample>{`<Sparklines data={sampleData}>
+    <SparklinesSteppedArea step="after" color="#8e44af"
+        showBaseline={false} style={{ fillOpacity: 0.5 }} />
+</Sparklines>
+<Sparklines data={sampleData}>
+    <SparklinesSteppedArea step="middle" color="#ea485c"
+        showOutline={false} style={{ fillOpacity: 0.6 }} />
 </Sparklines>`}</CodeExample>
                 </div>
 
