@@ -6,6 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react()],
   root: resolve(__dirname, 'demo'),
+  base: './', // Use relative paths for GitHub Pages deployment
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
