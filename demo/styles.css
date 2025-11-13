@@ -28,7 +28,7 @@ pre.prettyprint {
     box-sizing: border-box;
 }
 body {
-    margin: 0; font-family: roboto;
+    margin: 0; font-family: 'Inter', sans-serif;
 }
 header {
     color: white; background: #336aff;

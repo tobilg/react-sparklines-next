@@ -53,9 +53,11 @@ Sparklines component is a container with the following properties:
 
 **limit** - optional, how many data points to display at once
 
-**width, height** - dimensions of the generated sparkline in the SVG viewbox.  This will be automatically scaled (i.e. responsive) inside the parent container by default.
+**width, height** - dimensions of the SVG viewBox coordinate system (default: 240x60). These control the internal coordinate space used for rendering and determine the aspect ratio. The chart will be responsive by default and scale to fit its container.
 
-**svgWidth, svgHeight** - If you want absolute dimensions instead of a responsive component set these attributes.
+**svgWidth, svgHeight** - optional, sets the absolute pixel dimensions of the rendered SVG element. When specified, the chart becomes fixed-size instead of responsive. Use these when you need a specific pixel size rather than fluid scaling.
+
+> **Note:** `width`/`height` define the *coordinate system* (viewBox), while `svgWidth`/`svgHeight` define the *rendered size*. For responsive charts that adapt to their container, use only `width`/`height`. For fixed-size charts, specify both sets of properties.
 
 **[preserveAspectRatio](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio)** - default: 'none', set this to modify how the sparkline should scale
 

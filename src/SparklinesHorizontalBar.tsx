@@ -104,7 +104,7 @@ export default class SparklinesHorizontalBar extends React.Component<SparklinesH
           <text
             x={textX}
             y={textY}
-            dy="0.35em"
+            dy="0.15em"
             textAnchor="end"
             dominantBaseline="middle"
             style={{

@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Sparklines - Demo</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet">
+    <title>React Sparklines Next - Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
+<body class="bg-gray-50">
     <div id="root"></div>
     <script type="module" src="./main.tsx"></script>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/prettify.js"></script>
