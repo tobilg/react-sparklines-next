@@ -40,7 +40,6 @@ jobs:
 
   deploy-demo:
     name: Deploy demo to GitHub Pages
-    if: startsWith(github.ref, 'refs/main')
 
     needs: test
     
